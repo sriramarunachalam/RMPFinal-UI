@@ -1,0 +1,106 @@
+<H1>rmg works!</H1>
+<div class="container">
+    <div class="Employees">
+      
+          <h2>Welcome to Competency Page</h2>
+              <br>
+  
+                 <form>
+  
+  
+                 <form>
+  
+  
+                <hr>
+                <img src="https://www.openaccessgovernment.org/wp-content/uploads/2018/09/dreamstime_s_115214581.jpg" width="100%" height="500px">
+                <br><br>
+                <div class="form-group">
+  
+                    <input class="form-control" type="text" name="search" placeholder="Search Employees" [(ngModel)]='listFilter' aria-label="Search" style="width:400px">
+  
+                </div>
+               
+                <br>
+              <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Employee Name</th>
+                          <th scope="col">Current Project</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Contact Number</th>
+                          <th scope="col">Technology</th>
+                          <th scope="col">Experience</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let Employee of filteredProducts">
+                          <td>{{Employee.employeeName}}</td>
+                          <td>{{Employee.currentProject}}</td>
+                          <td>{{Employee.email}}</td>
+                          <td>{{Employee.contactNumber}}</td>
+                          <td>{{Employee.technology}}</td>
+                          <td>{{Employee.experience}}</td>
+                          <td><button class="btn btn-success" (click)="DisplayAccount(Employee)">View</button></td>
+                        </tr>
+                </tbody>
+            </table>
+            <div class="card" style="width: 20rem;" id="RequestCard">
+                <div class="card-body">
+                        <h5 class="card-title">Employee Details</h5><hr>
+                        <img [src]="DisplaySingleAccount.src"  width="20%" height="100"> 
+                    
+                    <hr>
+                    <label><strong>EmployeeName</strong></label>
+                    <p id="Client">{{DisplaySingleAccount.employeeName}}</p>
+                    
+                    <label><strong>CurrentProject</strong></label>
+                    <p id="Developers">{{DisplaySingleAccount.currentProject}}</p>
+                    
+                    <label><strong>Email</strong></label>
+                    <p id="Technology">{{DisplaySingleAccount.email}}</p>
+                    
+                    <label><strong>ContactNumber</strong></label>
+                    <p id="StartDate">{{DisplaySingleAccount.contactNumber}}</p>
+                    
+                    <label><strong>Technology</strong></label>
+                    <p id="EndDate">{{DisplaySingleAccount.technology}}</p>
+                    <button class="btn btn-primary" (click)="CancelCard()">Cancel</button>
+                </div>
+              </div>
+  
+          <div class="FilterEmployees">
+             
+  
+              <button (click)="DisplayIncomingRequest()" class="btn btn-info">Show New Requests</button>
+  
+          </div>
+  
+          <div *ngIf="ShowRequest">
+            <div class="card">
+              <div class="card-header">
+              <h3>Incoming Request from Competency</h3>
+              </div>
+            <hr>
+            <div class="card-body">
+                <p>Client Name: Toyota</p>
+                <p>Number of Developers: {{SingleAccountRequest.NumDevelopers}}</p>
+                <p>Technology: {{SingleAccountRequest.technology}}</p>
+                <p>Job Description: {{SingleAccountRequest.JobDescription}}</p>
+                <p>Start Date: {{SingleAccountRequest.StartDate | date:"MM/dd/yy"}}</p>
+                <p>End Date: {{SingleAccountRequest.EndDate | date:"MM/dd/yy"}}</p>
+  
+  
+          </div> 
+              
+              <button (click)="DisplayIncomingRequest()">Show New Requests</button>
+  
+  
+              
+          </div>
+  
+              
+            </div>
+        
+        </form>
+  
+  

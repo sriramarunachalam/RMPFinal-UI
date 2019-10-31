@@ -1,12 +1,7 @@
 
 <div class="container">
         <h4>Welcome to {{role}} Accounts Page</h4>
-        <!-- <button class="btn btn-primary" (click)="GetLoggedinAccountID()">
-        View Account Resource Requests</button> -->
         <hr>
-        <!-- <div *ngIf="ShowAccounts">
-            <h4>Current Logged in Account is {{LoggedInAccount.accountName}}</h4>
-        </div> -->
 <table class="table table-bordered">
         <thead class="thead-light">
           <tr>
@@ -29,9 +24,6 @@
             <td>{{Request.endDate | date}}</td>
             <td>
               <button class="btn btn-success" (click)="DisplayAccount(Request)">View</button>
-            </td>
-            <td>
-                <button class="btn btn-info" (click)="SendToCompetency(Request)">Send to Competency</button>
             </td>
           </tr>
       </tbody>
@@ -159,6 +151,39 @@
             </div>
         </div>
     </div>
+
+  <div *ngIf="ShowCard">
+    <div class="card">
+      <div class="card-header">
+        <h4>{{SingleRequest.role}} Account</h4>
+      </div>
+      <div class="card-body">
+        <label><strong>Number of Developers</strong></label>
+        <p>{{SingleRequest.numOfDevelopers}}</p>
+
+
+        <label><strong>Technology</strong></label>
+        <p>{{SingleRequest.technology}}</p>
+
+
+        <label><strong>Job Description</strong></label>
+        <p>{{SingleRequest.jobDescription}}</p>
+
+
+        <label><strong>Start Date</strong></label>
+        <p>{{SingleRequest.startDate| date}}</p>
+
+
+        <label><strong>End Date</strong></label>
+        <p>{{SingleRequest.endDate | date}}</p>
+
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-danger" (click)="CancelCard()">Close</button>
+      </div>
+    </div>
+  </div>
 </div>
+
 
 

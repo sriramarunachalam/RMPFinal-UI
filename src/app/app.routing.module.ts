@@ -7,12 +7,16 @@ import {RoleGuardService} from './_services/role-guard.service';
 import {UnauthComponent} from './unauth/unauth.component';
 import {ListOfRequestComponent} from './list-of-request/list-of-request.component';
 import {AccountComponent} from './account/account.component';
+import {CompetencyComponent} from './competency/competency.component';
+import {RMGComponent} from './rmg/rmg.component';
 
 const routes: Routes = [
     {path: '', component: HomeComponent },
     {path: 'Home', component: HomeComponent},
     {path: 'RequestList', component: ListOfRequestComponent},
     {path: 'Login', component: LoginComponent},
+    {path: 'Competency', component: CompetencyComponent},
+    {path: 'RMG', component: RMGComponent},
     {
       path: 'Register',
       component: RegisterComponent,

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Accounts } from './account/account.model';
 import { Subject } from 'rxjs';
 import { ListOfRequest } from './list-of-request/ListOfRequest.model';
+import {Competency} from './competency/compentency.model';
 
 
 @Injectable({
@@ -21,15 +22,13 @@ export class OperationsService {
 
   constructor(private Http: HttpClient) { }
 
-  AddAccount(NewAccount: Accounts)
-  {
-    return this.Http.post("http://localhost:56819/api/RMG/accounts/", NewAccount);
+  AddAccount(NewAccount: Accounts) {
+    return this.Http.post('http://localhost:56819/api/RMG/accounts/', NewAccount);
 
   }
 
-  DisplayAccounts()
-  {
-    return this.Http.get<Accounts[]>("http://localhost:56819/api/RMG/accounts");
+  DisplayAccounts() {
+    return this.Http.get<Accounts[]>('http://localhost:56819/api/RMG/accounts');
   }
 
 
@@ -43,7 +42,7 @@ export class OperationsService {
     this.Http.get<ListOfRequest[]>('http://localhost:56819/api/RMG/requests/' + AccountName)
       .subscribe(
         (AccountsData) => {
-          this.ListOfRequests = AccountsData
+          this.ListOfRequests = AccountsData;
           console.log(AccountsData);
           this.RequestList.next(this.ListOfRequests);
         });
@@ -56,25 +55,41 @@ export class OperationsService {
 
 
   PostListofRequests(NewRequest: ListOfRequest) {
-    return this.Http.post<ListOfRequest>("http://localhost:56819/api/RMG/NewRequest", NewRequest);
+    return this.Http.post<ListOfRequest>('http://localhost:56819/api/RMG/NewRequest', NewRequest);
   }
 
 
-  DisplayResourceRequests(LoggedInAccount: Accounts) {
+  /*DisplayResourceRequests(LoggedInAccount: Accounts) {
     this.LoginAccount = LoggedInAccount;
-    console.log("Operations Service getting the Selected Account from Account Component");
+    console.log('Operations Service getting the Selected Account from Account Component');
     console.log(this.LoginAccount);
-  }
+  }*/
 
   ShowLoggedInAccountDetails() {
-    if(this.LoginAccount==null)
-    {
-      console.log("Login Account is Null");
-    }
-    else
+    if (this.LoginAccount == null) {
+      console.log('Login Account is Null');
+    } else {
       return this.LoginAccount;
+    }
+  }
+
+  GetProjectEmployees() {
+    return this.Http.get<Competency[]>('http://localhost:56819/api/Competancy/GetProjectEmployee');
+  }
+
+  GetOnBenchEmployees() {
+    return this.Http.get<Competency[]>('http://localhost:56819/api/OnBeanchCompetancy/Getemployee');
+  }
+  GetOnTraningEmployees() {
+    return this.Http.get<Competency[]>('http://localhost:56819/api/OnTraningCompetancy/Getemployee');
+  }
+
+  GetCompetencyRequests() {
+    return this.Http.get<ListOfRequest[]>('http://localhost:56819/api/RMG/requests');
   }
 }
+
+
 // Algorithm of Steps to be Done:
 
 // Step 1:

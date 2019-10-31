@@ -17,6 +17,8 @@ import { UnauthComponent } from './unauth/unauth.component';
 import {AccountComponent} from './account/account.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {CompetencyComponent} from './competency/competency.component';
+import {RMGComponent} from './rmg/rmg.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ListOfRequestComponent,
     RegisterComponent,
     UnauthComponent,
-    AccountComponent
+    AccountComponent,
+    CompetencyComponent,
+    RMGComponent
   ],
   imports: [
     BrowserModule,

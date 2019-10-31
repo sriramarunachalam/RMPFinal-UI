@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="Employees">
+
+        <h2>Welcome to Competency Page</h2>
+            <br>
+              <hr>
+              <img src="https://www.openaccessgovernment.org/wp-content/uploads/2018/09/dreamstime_s_115214581.jpg" width="100%" height="500px">
+              <br><br>
+    <div class="ShowEmployees" *ngIf="showEmployees">
+              <div class="form-group">
+
+                  <input class="form-control" type="text" name="search" placeholder="Search Employees" [(ngModel)]='listFilter' aria-label="Search" style="width:400px">
+
+              </div>
+
+              <br>
+            <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Employee Name</th>
+                        <th scope="col">Current Project</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Contact Number</th>
+                        <th scope="col">Technology</th>
+                        <th scope="col">Experience</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let Employee of filteredProducts">
+                        <td>{{Employee.employeeName}}</td>
+                        <td>{{Employee.currentProject}}</td>
+                        <td>{{Employee.email}}</td>
+                        <td>{{Employee.contactNumber}}</td>
+                        <td>{{Employee.technology}}</td>
+                        <td>{{Employee.experience}}</td>
+                      </tr>
+              </tbody>
+          </table>
+    </div>
+
+
+        <div class="FilterEmployees">
+            <button type="button" class="btn btn-info" (click)=OnProject()>On Project</button>
+            <button type="button" class="btn btn-info"(click)="OnBench()">On Bench</button>
+            <button type="button" class="btn btn-info"(click)=" OnTraining()" >In Training</button>
+
+            <button (click)="DisplayRequests()" class="btn btn-info">Show New Requests</button>
+
+        </div>
+
+        <div *ngIf="showTable" class="ShowRequests">
+          <table class="table table-bordered">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">Request Number</th>
+              <th scope="col">Number of Developers</th>
+              <th scope="col">Technology</th>
+              <th scope="col">Job Description</th>
+              <th scope="col">Start Date</th>
+              <th scope="col">End Date</th>
+              <th scope="col">Client</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let request of CompetencyRequests">
+              <td>{{request.id}}</td>
+              <td>{{request.numOfDevelopers}}</td>
+              <td>{{request.technology}}</td>
+              <td>{{request.jobDescription}}</td>
+              <td>{{request.startDate | date}}</td>
+              <td>{{request.endDate| date}}</td>
+              <td>{{request.role}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+  </div>
+  </div>

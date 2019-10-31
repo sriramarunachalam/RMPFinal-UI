@@ -16,9 +16,10 @@ export class ListOfRequestComponent implements OnInit {
 
   UpdatedRequests: ListOfRequest[] = [];
   NewRequest: ListOfRequest;
+  SingleRequest: ListOfRequest;
   role: string;
   minDate: Date;
-  AccountId: number;
+  ShowCard = false;
   constructor(private operationService: OperationsService,
               private router: Router, private authService: AuthService ) {
     this.minDate = new Date();
@@ -69,10 +70,23 @@ export class ListOfRequestComponent implements OnInit {
         this.NewRequest = Data;
         console.log('Account ID');
         console.log(this.NewRequest.role);
-        //this.router.navigateByUrl('/RequestList');
         this.getAccountDetails(this.NewRequest.role);
+        this.role = this.authService.role;
+
       }
     );
     AccountsForm.resetForm();
   }
+
+  DisplayAccount(ShowRequest: ListOfRequest) {
+    this.ShowCard = true;
+    this.SingleRequest = ShowRequest;
+    console.log(this.SingleRequest);
+  }
+
+  CancelCard() {
+    this.ShowCard = false;
+  }
+
+
 }

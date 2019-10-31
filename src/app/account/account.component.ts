@@ -24,7 +24,7 @@ export class AccountComponent implements OnInit {
   {
     console.log(AccountsForm.value);
     this.operationService.AddAccount(AccountsForm.value).subscribe(
-       (Data)=> 
+       (Data)=>
       {
          console.log(Data)
       }
@@ -42,7 +42,7 @@ export class AccountComponent implements OnInit {
 
   GetSingleAccount(Account: Accounts) {
     this.LoginAccount = Account;
-    this.operationService.DisplayResourceRequests(this.LoginAccount);
+    // this.operationService.DisplayResourceRequests(this.LoginAccount);
     this.router.navigate(['RequestList']);
   }
 
