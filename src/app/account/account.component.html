@@ -1,0 +1,34 @@
+
+<div class="container">
+<h4>Add An Account</h4>
+<hr>
+<form  #AccountsForm="ngForm" (ngSubmit)="SubmitForm(AccountsForm)">
+
+    <div class="form-group">
+        <input type="hidden" class="form-control" ngModel name="AccountID"
+        #AccountIDControl="ngModel" required [(ngModel)]="value">
+    </div>
+    <div class="form-group">
+        <label><strong>Enter the Account Name:</strong></label>
+        <input type="text" class="form-control" id="AccountName" ngModel name="AccountName"
+        #AccountNameControl="ngModel" required>
+    </div>
+    <div *ngIf="AccountNameControl.touched && AccountNameControl.invalid">
+        <p class="Error">Account Name is Required!</p>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" [disabled]="AccountsForm.invalid">Add Account</button>
+    </div>
+
+</form> 
+<!-- <hr>
+<button class="btn btn-success" (click)="DisplayAccounts()">View Accounts</button>
+
+<div *ngIf="ShowAccounts">
+    <div class="AccountList" *ngFor="let Account of AccountsList">
+        <button type="button" class="btn btn-outline-primary" (click)="GetSingleAccount(Account)">
+            {{Account.accountName}}</button>
+    </div>
+</div> -->
+</div>

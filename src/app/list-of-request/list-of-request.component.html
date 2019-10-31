@@ -1,0 +1,164 @@
+
+<div class="container">
+        <h4>Welcome to {{role}} Accounts Page</h4>
+        <!-- <button class="btn btn-primary" (click)="GetLoggedinAccountID()">
+        View Account Resource Requests</button> -->
+        <hr>
+        <!-- <div *ngIf="ShowAccounts">
+            <h4>Current Logged in Account is {{LoggedInAccount.accountName}}</h4>
+        </div> -->
+<table class="table table-bordered">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Request Number</th>
+            <th scope="col">No. of Developers</th>
+            <th scope="col">Technology</th>
+            <th scope="col">Job Description</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th colspan="2">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let Request of UpdatedRequests">
+            <td>{{Request.id}}</td>
+            <td>{{Request.numOfDevelopers}}</td>
+            <td>{{Request.technology}}</td>
+            <td>{{Request.jobDescription}}</td>
+            <td>{{Request.startDate | date}}</td>
+            <td>{{Request.endDate | date}}</td>
+            <td>
+              <button class="btn btn-success" (click)="DisplayAccount(Request)">View</button>
+            </td>
+            <td>
+                <button class="btn btn-info" (click)="SendToCompetency(Request)">Send to Competency</button>
+            </td>
+          </tr>
+      </tbody>
+</table>
+
+
+<div>
+    <button class="btn btn-outline-secondary" id="ResourceButton" data-toggle="modal" data-target="#NewRequestModal">
+    Raise new Resource Request</button>
+</div>
+
+<div class="modal fade" id="NewRequestModal">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+
+              <div class="modal-header">
+                  <h4 class="modal-title">Create a New Request</h4>
+                <div class="alert alert-success" *ngIf="DisplayMessage">
+                      <strong>Success!</strong> Record Added Succesfully!
+               </div>
+              </div>
+
+              <div class="modal-body" >
+                  <form name="form" #NewRequestForm="ngForm" (ngSubmit)="SubmitForm(NewRequestForm)">
+
+                      <div class="form-group">
+                            <div class="form-group">
+                                    <input type="hidden" class="form-control" ngModel name="Role"
+                                    #RoleControl="ngModel" required [(ngModel)]="role">
+                            </div>
+
+
+                          <label for="SelectRequirements">
+                          <strong>Select the Number of Developers Required:</strong>
+                          </label>
+
+                          <select class="form-control" id="NumDevelopers" ngModel name="NumOfDevelopers"
+                          #NumDevelopersControl="ngModel" required>
+                              <option value="">Select...</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                          </select>
+
+                      </div>
+
+                      <div *ngIf="NumDevelopersControl.touched && NumDevelopersControl.invalid">
+                          <p class="Error">*Number of developers required</p>
+                      </div>
+
+                      <div class="form-group">
+                          <label for="SelectTechnology">
+                            <strong>Select the Technology:</strong>
+                          </label>
+
+                          <select class="form-control" id="Technology" ngModel name="Technology"
+                          #TechnologyControl="ngModel" required>
+                              <option value="">Select...</option>
+                              <option value="Java">Java</option>
+                              <option value=".NET">.NET</option>
+                          </select>
+                      </div>
+
+                      <div *ngIf="TechnologyControl.touched && TechnologyControl.invalid">
+                          <p class="Error">*Technology is required</p>
+                      </div>
+
+                      <div class="form-group">
+
+                          <label for="JobDescription">
+                            <strong>Job Description:</strong>
+                          </label>
+
+                          <textarea class="form-control" rows="5" id="JobDescription" ngModel name="JobDescription"
+                          #JobDescriptionControl="ngModel" required>
+                        </textarea>
+                      </div>
+
+                      <div *ngIf="JobDescriptionControl.touched && JobDescriptionControl.invalid">
+                          <p class="Error">*Job Description is required</p>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-xs-12 col-12 col-md-6 form-group">
+                              <label class="StartDate"><strong>Start Date:</strong></label>
+                              <input
+                                placeholder="Select Start Date"
+                                class="form-control"
+                                placement="bottom left"
+                                bsDatepicker
+                                ngModel name="StartDate"
+                                #StartDateControl="ngModel" required [minDate]="minDate">
+                          </div>
+                      </div>
+
+
+                      <div *ngIf="StartDateControl.touched && StartDateControl.invalid">
+                          <p class="Error">*Start Date is required</p>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-xs-12 col-12 col-md-6 form-group">
+                              <label class="EndDate"><strong>End Date:</strong></label>
+                              <input
+                                placeholder="Select End Date"
+                                class="form-control"
+                                placement="bottom left"
+                                bsDatepicker
+                                ngModel name="EndDate"
+                                #EndDateControl="ngModel" required [minDate]="minDate">
+                          </div>
+                      </div>
+
+                      <div *ngIf="EndDateControl.touched && EndDateControl.invalid">
+                          <p class="Error">*End Date is required</p>
+                      </div>
+
+
+                      <button type="submit" class="btn btn-primary" [disabled]="NewRequestForm.invalid">Submit</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

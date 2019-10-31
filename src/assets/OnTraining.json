@@ -1,0 +1,26 @@
+[
+    {
+      "EmployeeName": "Lionel Messi",
+      "CurrentProject": "In Training",
+      "Email": "Aditya@example.com",
+      "ContactNumber": "(203)583-9169",
+      "Technology": "Java",
+      "Experience": "3"
+    },
+    {
+      "EmployeeName": "Cristiano Ronaldo",
+      "CurrentProject": "In Training",
+      "Email": "Shethiya@example.com",
+      "ContactNumber": "(203)584-9269",
+      "Technology": "Angular",
+      "Experience": "2"
+    },
+    {
+      "EmployeeName": "James Rodriguez",
+      "CurrentProject": "In Training",
+      "Email": "Tatya@example.com",
+      "ContactNumber": "(203)586-9369",
+      "Technology": "React",
+      "Experience": "3"
+    }
+]

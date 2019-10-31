@@ -1,0 +1,26 @@
+     [
+      {
+        "EmployeeName": "Aditya",
+        "CurrentProject": "Walmart",
+        "Email": "Aditya@example.com",
+        "ContactNumber": "(203)583-9169",
+        "Technology": "Java",
+        "Experience": "3"
+      },
+      {
+        "EmployeeName": "Shethiya",
+        "CurrentProject": "Google",
+        "Email": "Shethiya@example.com",
+        "ContactNumber": "(203)584-9269",
+        "Technology": "Angular",
+        "Experience": "2"
+      },
+      {
+        "EmployeeName": "Tatya",
+        "CurrentProject": "Amazon",
+        "Email": "Tatya@example.com",
+        "ContactNumber": "(203)586-9369",
+        "Technology": "React",
+        "Experience": "3"
+      }
+    ]
