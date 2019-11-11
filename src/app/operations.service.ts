@@ -4,6 +4,7 @@ import { Accounts } from './account/account.model';
 import { Subject } from 'rxjs';
 import { ListOfRequest } from './list-of-request/ListOfRequest.model';
 import {Competency} from './competency/compentency.model';
+import { Employees } from './list-of-request/Employees.model';
 
 
 @Injectable({
@@ -32,11 +33,14 @@ export class OperationsService {
   }
 
 
-  // DisplayListOfRequestsById(AccountID: number)
-  // {
-  //   return this.Http.get<ListOfRequest[]>("http://localhost:56819/api/RMG/requests/" +AccountID);
-  // }
+  GetEmployeesbyRequestID(Requestid: number) {
+    return this.Http.get<Employees[]>('http://localhost:56819/api/RMG/Employees/'+ Requestid);
+  }
 
+
+  GetAllEmployees() {
+    return this.Http.get<Employees[]>('http://localhost:56819/api/RMG/Employees');
+  }
 
   DisplayListOfRequestsByName(AccountName: string) {
     this.Http.get<ListOfRequest[]>('http://localhost:56819/api/RMG/requests/' + AccountName)
@@ -59,6 +63,13 @@ export class OperationsService {
   }
 
 
+
+  PostEmployees(employees: Employees) {
+    return this.Http.post<Employees>('http://localhost:56819/api/RMG/Employee', employees);
+
+  }
+
+
   /*DisplayResourceRequests(LoggedInAccount: Accounts) {
     this.LoginAccount = LoggedInAccount;
     console.log('Operations Service getting the Selected Account from Account Component');
@@ -71,17 +82,6 @@ export class OperationsService {
     } else {
       return this.LoginAccount;
     }
-  }
-
-  GetProjectEmployees() {
-    return this.Http.get<Competency[]>('http://localhost:56819/api/Competancy/GetProjectEmployee');
-  }
-
-  GetOnBenchEmployees() {
-    return this.Http.get<Competency[]>('http://localhost:56819/api/OnBeanchCompetancy/Getemployee');
-  }
-  GetOnTraningEmployees() {
-    return this.Http.get<Competency[]>('http://localhost:56819/api/OnTraningCompetancy/Getemployee');
   }
 
   GetCompetencyRequests() {

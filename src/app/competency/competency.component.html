@@ -2,53 +2,13 @@
   <div class="Employees">
 
         <h2>Welcome to Competency Page</h2>
-            <br>
-              <hr>
-              <img src="https://www.openaccessgovernment.org/wp-content/uploads/2018/09/dreamstime_s_115214581.jpg" width="100%" height="500px">
-              <br><br>
-    <div class="ShowEmployees" *ngIf="showEmployees">
-              <div class="form-group">
-
-                  <input class="form-control" type="text" name="search" placeholder="Search Employees" [(ngModel)]='listFilter' aria-label="Search" style="width:400px">
-
-              </div>
-
-              <br>
-            <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Employee Name</th>
-                        <th scope="col">Current Project</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Contact Number</th>
-                        <th scope="col">Technology</th>
-                        <th scope="col">Experience</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let Employee of filteredProducts">
-                        <td>{{Employee.employeeName}}</td>
-                        <td>{{Employee.currentProject}}</td>
-                        <td>{{Employee.email}}</td>
-                        <td>{{Employee.contactNumber}}</td>
-                        <td>{{Employee.technology}}</td>
-                        <td>{{Employee.experience}}</td>
-                      </tr>
-              </tbody>
-          </table>
-    </div>
-
-
-        <div class="FilterEmployees">
-            <button type="button" class="btn btn-info" (click)=OnProject()>On Project</button>
-            <button type="button" class="btn btn-info"(click)="OnBench()">On Bench</button>
-            <button type="button" class="btn btn-info"(click)=" OnTraining()" >In Training</button>
-
-            <button (click)="DisplayRequests()" class="btn btn-info">Show New Requests</button>
-
-        </div>
+        <hr>
+          <img src="https://www.openaccessgovernment.org/wp-content/uploads/2018/09/dreamstime_s_115214581.jpg" width="100%" height="500px"> 
+        <hr>
 
         <div *ngIf="showTable" class="ShowRequests">
+          <h4>List of Requests </h4>
+          <hr>
           <table class="table table-bordered">
             <thead class="thead-light">
             <tr>
@@ -58,6 +18,7 @@
               <th scope="col">Job Description</th>
               <th scope="col">Start Date</th>
               <th scope="col">End Date</th>
+              <th scope="col">Status</th>
               <th scope="col">Client</th>
 
             </tr>
@@ -70,10 +31,175 @@
               <td>{{request.jobDescription}}</td>
               <td>{{request.startDate | date}}</td>
               <td>{{request.endDate| date}}</td>
+              <td><button class="btn btn-warning" (click)="AcknowledgeRequest(request)">{{request.status}}</button></td>
               <td>{{request.role}}</td>
             </tr>
             </tbody>
           </table>
         </div>
-  </div>
+
+        <div>
+            <button (click)="DisplayRequests()" class="btn btn-info">Show New Requests</button>
+            <button (click)="AddEmployee()" class="btn btn-success">Add New Employee</button>
+
+        </div>
+
+      <div *ngIf="ShowRequest">
+          <div class="card">
+
+                <div class="card-header">
+                  <h4>{{HandleRequest.role}} Account</h4>
+                </div>
+
+                <div class="card-body">
+
+                  <label><strong>Request ID</strong></label>
+                  <p>{{HandleRequest.id}}</p>
+
+                  <label><strong>Number of Developers</strong></label>
+                  <p>{{HandleRequest.numOfDevelopers}}</p>
+          
+          
+                  <label><strong>Technology</strong></label>
+                  <p>{{HandleRequest.technology}}</p>
+          
+          
+                  <label><strong>Job Description</strong></label>
+                  <p>{{HandleRequest.jobDescription}}</p>
+          
+          
+                  <label><strong>Start Date</strong></label>
+                  <p>{{HandleRequest.startDate | date}}</p>
+          
+          
+                  <label><strong>End Date</strong></label>
+                  <p>{{HandleRequest.endDate | date}}</p>
+          
+                </div>
+
+                <div *ngFor="let Employee of AllEmployees">
+                  <p>{{Employee.employeeName}}</p>
+                  <p>{{Employee.currentProject}}</p>
+                  <p>{{Employee.email}}</p>
+
+                </div>
+
+                <div class="card-footer">
+                  <button class="btn btn-danger" (click)="CancelCard()">Close</button>
+                  <button class="btn btn-primary" (click)="ShowEmployees()">View Resources</button>
+                </div>
+
+              </div>   
+          </div>
+
+          <div class="AddNewEmployee" *ngIf="ShowEmployeeForm">
+              <div class="card">
+                  <div class="card-header">
+                    <h5>Add a New Employee</h5>
+                  </div>
+
+                  <div class="card-body">
+                    <form [formGroup]="EmployeeForm" (ngSubmit)="InsertEmployee()">
+                      
+                      <div class="form-group">
+                      <input type="number" class="form-control" formControlName="Id" [hidden]='hideElement'>
+                      </div>
+                      
+                      <label for="EmployeeName">
+                          <strong>Enter the Employee Name</strong>
+                      </label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" formControlName="EmployeeName">
+                      </div>
+                      <p *ngIf="(Employee.EmployeeName.dirty || Employee.EmployeeName.touched) && Employee.EmployeeName.invalid && Employee.EmployeeName.errors.required" class="error">
+                        *Employee name is required.
+                      </p>
+
+                      
+                      <label for="CurrentProject">
+                          <strong>Enter Current Project</strong>
+                      </label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" formControlName="CurrentProject">
+                      </div>
+                      <p *ngIf="(Employee.CurrentProject.dirty || Employee.CurrentProject.touched) && Employee.CurrentProject.invalid && Employee.CurrentProject.errors.required" class="error">
+                          *Current project is required.
+                      </p>
+
+                      
+                      <label for="Email">
+                        <strong>Enter Email</strong>
+                      </label>
+                      <div class="form-group">
+                        <input type="text" class="form-control" formControlName="Email">
+                      </div>
+                      <p *ngIf="(Employee.Email.dirty || Employee.Email.touched) && Employee.Email.invalid && Employee.Email.errors.required" class="error">
+                          *Email is required.
+                      </p>
+                      <p *ngIf="Employee.Email.dirty && Employee.Email.invalid && Employee.Email.errors.email" class="error">
+                          *Please Enter Email in correct format.
+                      </p>
+
+                      
+                      <label for="ContactNumber">
+                          <strong>Enter Contact Number</strong>
+                      </label>
+                      <div class="form-group">
+                          <input type="text" class="form-control" formControlName="ContactNumber">
+                      </div>
+                      <p *ngIf="(Employee.ContactNumber.dirty || Employee.ContactNumber.touched) && Employee.ContactNumber.invalid && Employee.ContactNumber.errors.required" class="error">
+                          *Contact Number is required.
+                      </p>
+
+                      <label for="Experience">
+                        <strong>Enter Experience</strong>
+                      </label>
+                      <div class="form-group">
+                          <input type="text" class="form-control" formControlName="Experience">
+                      </div>
+                      <p *ngIf="(Employee.Experience.dirty || Employee.Experience.touched) && Employee.Experience.invalid && Employee.Experience.errors.required" class="error">
+                          *Experience is required.
+                      </p>
+
+                      
+                      <label for="Technology">
+                          <strong>Select Technology</strong>
+                      </label>
+                      <div class="form-group">
+                          <input type="text" class="form-control" formControlName="Technology">
+                      </div>
+                      <p *ngIf="(Employee.Technology.dirty || Employee.Technology.touched) && Employee.Technology.invalid && Employee.Technology.errors.required" class="error">
+                          *Technology is required.
+                      </p>
+
+                      
+                      <label for="StartDate">
+                          <strong>Start Date</strong>
+                      </label>
+                      <div class="form-group">
+                          <input type="date" placeholder="StartDate" class="form-control" formControlName="StartDate">
+                      </div>
+                      <p *ngIf="(Employee.StartDate.dirty || Employee.StartDate.touched) && Employee.StartDate.invalid && Employee.StartDate.errors.required" class="error">
+                          *Start Date is required.
+                      </p>
+
+                      <div class="form-group">
+                          <input type="number" class="form-control" formControlName="RequestID" [hidden]='hideElement'>
+                      </div>
+
+                      
+                      <div class="form-group">
+                        <button type="submit" class="btn btn-primary" [disabled]='!EmployeeForm.valid'>Submit</button>
+                      </div>
+
+                    </form>
+                  </div>
+
+                  <div class="card-footer text-muted">
+                    2 days ago
+                  </div>
+
+                </div>
+           </div>
+      </div>
   </div>

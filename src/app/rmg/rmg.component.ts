@@ -28,11 +28,11 @@ export class RMGComponent implements OnInit {
   constructor(private operationService: OperationsService) { }
 
   ngOnInit() {
-    this.operationService.GetOnTraningEmployees().subscribe(
-      (OnTrainingData) => {
-        this.OnProjectEmployees = OnTrainingData
-        this.filteredProducts = this.OnProjectEmployees;
-      });
+    // this.operationService.GetOnTraningEmployees().subscribe(
+    //   (OnTrainingData) => {
+    //     this.OnProjectEmployees = OnTrainingData
+    //     this.filteredProducts = this.OnProjectEmployees;
+    //   });
 
   }
 
@@ -50,12 +50,12 @@ performFilter(filterBy: string): Competency[] {
     OnProjectEmployees.employeeName.toLocaleLowerCase().indexOf(filterBy) !== -1);
 }
 
-OnTraining(){
-  this.operationService.GetOnTraningEmployees().subscribe(
-    (OnTrainingData) => {
-      this.filteredProducts = OnTrainingData;
-    });
-  }
+// OnTraining(){
+//   this.operationService.GetOnTraningEmployees().subscribe(
+//     (OnTrainingData) => {
+//       this.filteredProducts = OnTrainingData;
+//     });
+//   }
   DisplayIncomingRequest() {
     this.ShowRequest = !this.ShowRequest;
     //this.SingleAccountRequest = this.operationService.DisplayAccountsRequest();

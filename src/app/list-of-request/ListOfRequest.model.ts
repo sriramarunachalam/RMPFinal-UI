@@ -5,6 +5,7 @@ export class ListOfRequest {
     jobDescription: string;
     startDate: Date;
     endDate: Date;
+    status: string;
     role: string;
 }
 

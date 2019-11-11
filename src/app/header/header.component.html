@@ -12,18 +12,23 @@
       <li class="nav-item active">
         <a class="nav-link" routerLink="/Home">Home <span class="sr-only">(current)</span></a>
       </li>
+
       <li *ngIf="loggedIn() && role==='Toyota'" class="nav-item" >
         <a class="nav-link" routerLink="/RequestList">Account</a>
       </li>
+
       <li *ngIf="loggedIn() && role==='BMW'" class="nav-item" >
         <a class="nav-link" routerLink="/RequestList">Account</a>
       </li>
+
       <li *ngIf="loggedIn() && role==='EY'" class="nav-item" >
         <a class="nav-link" routerLink="/RequestList">Account</a>
       </li>
+
       <li *ngIf="loggedIn() && role==='NT'" class="nav-item" >
         <a class="nav-link" routerLink="/RequestList">Account</a>
       </li>
+
       <li *ngIf="loggedIn() && role==='Delta'" class="nav-item" >
         <a class="nav-link" routerLink="/RequestList">Account</a>
       </li>
@@ -31,8 +36,21 @@
       <li *ngIf="loggedIn() && role==='Competency'" class="nav-item">
         <a class="nav-link" routerLink="/Competency">Competency</a>
       </li>
-
     </ul>
+
+
+    <!-- 
+    <ul *ngIf="loggedIn()" class="navbar-nav ml-auto">
+      <li *ngIf="role==='Admin'" class="nav-item">
+        <a class="nav-link" routerLink="/Register">Register</a>
+      </li>
+      <li class="nav-item">
+        <a (click)="logout()" class="nav-link" routerLink="/Home">Logout</a>
+      </li>
+    </ul> --> 
+
+
+    <ul class="nav navbar-nav navbar-right">
     <ul *ngIf="loggedIn()" class="navbar-nav ml-auto">
       <li *ngIf="role==='Admin'" class="nav-item">
         <a class="nav-link" routerLink="/Register">Register</a>
@@ -47,6 +65,7 @@
         <a class="nav-link" routerLink="/Login">Login</a>
       </li>
     </ul>
+    </ul>
 
   </div>
-</nav>
+  </nav>

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';
 import {AuthService} from "../_services/auth.service";
+import { Employees } from './Employees.model';
 
 
 @Component({
@@ -17,9 +18,13 @@ export class ListOfRequestComponent implements OnInit {
   UpdatedRequests: ListOfRequest[] = [];
   NewRequest: ListOfRequest;
   SingleRequest: ListOfRequest;
+  EmployeesList: Employees[] = [];
   role: string;
   minDate: Date;
   ShowCard = false;
+  RequestStatus = 'Pending';
+  ShowEmployees = false;
+
   constructor(private operationService: OperationsService,
               private router: Router, private authService: AuthService ) {
     this.minDate = new Date();
@@ -72,9 +77,8 @@ export class ListOfRequestComponent implements OnInit {
         console.log(this.NewRequest.role);
         this.getAccountDetails(this.NewRequest.role);
         this.role = this.authService.role;
-
-      }
-    );
+       }
+       );
     AccountsForm.resetForm();
   }
 
@@ -86,6 +90,18 @@ export class ListOfRequestComponent implements OnInit {
 
   CancelCard() {
     this.ShowCard = false;
+  }
+
+  CancelEmployees() {
+    this.ShowEmployees = !this.ShowEmployees;
+  }
+
+  ViewEmployees(Requestid: number) {
+    this.ShowEmployees = true;
+    console.log('Request Id');
+    this.operationService.GetEmployeesbyRequestID(Requestid)
+    .subscribe(
+      (Employees) => {this.EmployeesList = Employees});
   }
 
 

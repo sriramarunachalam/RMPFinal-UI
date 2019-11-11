@@ -3,6 +3,9 @@ import {Competency} from './compentency.model';
 import { OperationsService } from '../operations.service';
 import { Accounts } from '../account/account.model';
 import {ListOfRequest} from "../list-of-request/ListOfRequest.model";
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Employees } from '../list-of-request/Employees.model';
+
 
 @Component({
   selector: 'app-competency',
@@ -10,66 +13,39 @@ import {ListOfRequest} from "../list-of-request/ListOfRequest.model";
   styleUrls: ['./competency.component.css']
 })
 export class CompetencyComponent implements OnInit {
-  OnProjectEmployees: Competency[];
   SingleAccountRequest: Accounts;
   ShowRequest = false;
-  filteredProducts: Competency[] = [];
   CompetencyRequests: ListOfRequest[] = [];
   showTable = false;
   showEmployees = false;
-  _listFilter: string;
+  UpdatedRequest: ListOfRequest;
+  HandleRequest: ListOfRequest;
+  ShowEmployeeForm = false;
+  AllEmployees: Employees[] = [];
+  hideElement = true;
+
+  EmployeeForm: FormGroup;
+
 
   products: Competency[] = [];
   constructor(private operationService: OperationsService) { }
 
   ngOnInit() {
-    this.operationService.GetProjectEmployees().subscribe(
-      (ProjectData) => {
-        this.OnProjectEmployees = ProjectData
-        this.filteredProducts = ProjectData
-        console.log(this.filteredProducts);
-      });
-
+    this.EmployeeForm = new FormGroup({
+      Id: new FormControl(0),
+      EmployeeName: new FormControl('', [Validators.required]),
+      CurrentProject: new FormControl('', [Validators.required]),
+      Email: new FormControl('', [Validators.required, Validators.email]),
+      ContactNumber: new FormControl('', [Validators.required]),
+      Experience: new FormControl('', [Validators.required]),
+      Technology: new FormControl('', [Validators.required]),
+      StartDate: new FormControl('', [Validators.required]),
+      RequestID: new FormControl(''),
+    })
   }
 
-  get listFilter(): string {
-    return this._listFilter;
-}
-set listFilter(value: string) {
-    this._listFilter = value;
-    this.filteredProducts = this._listFilter ? this.performFilter(this.listFilter) : this.OnProjectEmployees;
-}
-performFilter(filterBy: string): Competency[] {
-    filterBy = filterBy.toLocaleLowerCase();
-    return this.filteredProducts.filter((OnProjectEmployees: Competency) =>
-    OnProjectEmployees.employeeName.toLocaleLowerCase().indexOf(filterBy) !== -1);
-}
-
-  OnBench() {
-    this.showTable = false;
-    this.showEmployees = true;
-    this.operationService.GetOnBenchEmployees().subscribe(
-      (OnBenchData) => {
-        this.filteredProducts = OnBenchData;
-      });
-  }
-
-  OnProject() {
-    this.showTable = false;
-    this.showEmployees = true;
-    this.operationService.GetProjectEmployees().subscribe(
-      (ProjectData) => {
-        this.filteredProducts = ProjectData;
-      });
-  }
-  OnTraining() {
-    this.showTable = false;
-    this.showEmployees = true;
-    this.operationService.GetOnTraningEmployees().subscribe(
-      (OnTrainingData) => {
-        this.filteredProducts = OnTrainingData;
-      });
-
+  get Employee() { 
+    return this.EmployeeForm.controls; 
   }
 
   DisplayRequests() {
@@ -80,6 +56,36 @@ performFilter(filterBy: string): Competency[] {
         console.log(Data); this.CompetencyRequests = Data; });
 
   }
+
+  AcknowledgeRequest(competencyRequest: ListOfRequest) {
+    this.ShowRequest = true;
+    this.HandleRequest = competencyRequest;
+  }
+
+  AddEmployee() {
+    this.ShowEmployeeForm = !this.ShowEmployeeForm;
+  }
+
+  CancelCard() {
+    this.ShowRequest = !this.ShowRequest;
+  }
+
+  InsertEmployee() {
+    console.log(this.EmployeeForm.value);
+    this.operationService.PostEmployees(this.EmployeeForm.value).subscribe(
+      (Data)=> {console.log('Employee Added Succesfully!', Data)});
+    this.EmployeeForm.reset();
+  }
+
+  ShowEmployees() {
+    this.operationService.GetAllEmployees().subscribe(
+      (Employees) => {this.AllEmployees = Employees}
+      );
+  }
+
+  
+
+
 
 
 }

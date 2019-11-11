@@ -11,7 +11,8 @@
             <th scope="col">Job Description</th>
             <th scope="col">Start Date</th>
             <th scope="col">End Date</th>
-            <th colspan="2">Action</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -22,6 +23,7 @@
             <td>{{Request.jobDescription}}</td>
             <td>{{Request.startDate | date}}</td>
             <td>{{Request.endDate | date}}</td>
+            <td>{{Request.status}}</td>            
             <td>
               <button class="btn btn-success" (click)="DisplayAccount(Request)">View</button>
             </td>
@@ -143,6 +145,11 @@
                           <p class="Error">*End Date is required</p>
                       </div>
 
+                      <div class="form-group">
+                        <input type="hidden" class="form-control" ngModel name="Status"
+                        #StatusControl="ngModel" [(ngModel)]="RequestStatus">
+                      </div>
+
 
                       <button type="submit" class="btn btn-primary" [disabled]="NewRequestForm.invalid">Submit</button>
                       <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -152,22 +159,24 @@
         </div>
     </div>
 
-  <div *ngIf="ShowCard">
-    <div class="card">
-      <div class="card-header">
-        <h4>{{SingleRequest.role}} Account</h4>
-      </div>
-      <div class="card-body">
-        <label><strong>Number of Developers</strong></label>
-        <p>{{SingleRequest.numOfDevelopers}}</p>
+<div *ngIf="ShowCard">
+     <div class="col-sm-6">
+        <div class="card">
+           <div class="card-header">
+              <h4>{{SingleRequest.role}} Account</h4>
+           </div>
+
+          <div class="card-body">
+          <label><strong>Number of Developers</strong></label>
+          <p>{{SingleRequest.numOfDevelopers}}</p>
 
 
-        <label><strong>Technology</strong></label>
-        <p>{{SingleRequest.technology}}</p>
+          <label><strong>Technology</strong></label>
+          <p>{{SingleRequest.technology}}</p>
 
 
-        <label><strong>Job Description</strong></label>
-        <p>{{SingleRequest.jobDescription}}</p>
+          <label><strong>Job Description</strong></label>
+          <p>{{SingleRequest.jobDescription}}</p>
 
 
         <label><strong>Start Date</strong></label>
@@ -177,10 +186,51 @@
         <label><strong>End Date</strong></label>
         <p>{{SingleRequest.endDate | date}}</p>
 
-      </div>
+        </div>
       <div class="card-footer">
         <button class="btn btn-danger" (click)="CancelCard()">Close</button>
+        <button class="btn btn-success" (click)="ViewEmployees(SingleRequest.id)">View Employees</button>
       </div>
+
+      </div>
+    </div>
+
+    <div class="Project Employees" *ngIf="ShowEmployees">
+        <div class="card">
+           <div class="card-header">
+              <h4>List of Employees</h4>
+           </div>
+
+           <div class="card-body">
+              <table class="table table-bordered">
+                  <thead class="thead-light">
+                    <tr>
+                      <th scope="col">Employee Name</th>
+                      <th scope="col">Current Project</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Contact Number</th>
+                      <th scope="col">Experience</th>
+                      <th scope="col">Technology</th>
+                      <th scope="col">Start Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let Employee of EmployeesList">
+                      <td>{{Employee.employeeName}}</td>
+                      <td>{{Employee.currentProject}}</td>
+                      <td>{{Employee.email}}</td>
+                      <td>{{Employee.contactNumber}}</td>
+                      <td>{{Employee.experience}}</td>
+                      <td>{{Employee.technology}}</td>
+                      <td>{{Employee.startDate | date}}</td>            
+                    </tr>
+                </tbody>
+          </table>            
+           </div>
+
+           <div class="card-footer">
+              <button class="btn btn-danger" (click)="CancelEmployees()">Close</button>
+           </div>
     </div>
   </div>
 </div>
